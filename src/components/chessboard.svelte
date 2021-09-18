@@ -9,11 +9,13 @@
 
   function handleClick(e) {
     const id = e.currentTarget.id;
-
     const source = findSquareById(id);
-    const target = chessboard[4][5];
+    const target = findSquareById("f4");
 
     target.piece = source.piece;
+    target.selected = true;
+
+    source.selected = true;
     source.piece = null;
 
     board = chessboard.map((row) => row);
@@ -27,8 +29,15 @@
     <div class="col">
       {#each board as row}
         <div class="row">
-          {#each row as { id, color, piece }}
-            <Square {id} {color} {piece} {height} on:click={handleClick} />
+          {#each row as { id, color, piece, selected }}
+            <Square
+              {id}
+              {color}
+              {piece}
+              {height}
+              {selected}
+              on:click={handleClick}
+            />
           {/each}
         </div>
       {/each}
