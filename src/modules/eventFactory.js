@@ -1,10 +1,18 @@
-function FirstClickEmptySquareEvent(square){ this.square = square; }
+class FirstClickEmptySquareEvent{
+    constructor(square){ this.square = square; }
+}
 
-function FirstClickPieceInSquareEvent(square){ this.square = square; }
+class FirstClickPieceInSquareEvent{
+    constructor(square){ this.square = square; }
+}
 
-function SecondClickEmptySquareEvent(square){ this.square = square; }
+class SecondClickEmptySquareEvent{
+    constructor(square){ this.square = square; }
+}
 
-function SecondClickPieceInSquareEvent(square){ this.square = square; }
+class SecondClickPieceInSquareEvent{
+    constructor(square){ this.square = square; }
+}
 
 let isFirstClick = true;
 

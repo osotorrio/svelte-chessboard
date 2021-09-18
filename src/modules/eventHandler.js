@@ -24,6 +24,6 @@ function secondClickPieceInSquareEventHandler(event) {
 }
 
 export default function handleEvent(event) {
-    const listener = listeners.find(e => (event instanceof e.type));
+    const listener = listeners.find(e => event instanceof e.type);
     if(listener) listener.handle(event);
 }
