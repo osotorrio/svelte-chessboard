@@ -1,10 +1,10 @@
 import { eventTypes } from "./eventFactory";
 
 const listeners = [
-    {type: eventTypes.firstClickEmptySquareEvent, handle: firstClickEmptySquareEventHandler},
-    {type: eventTypes.firstClickPieceInSquareEvent, handle: firstClickPieceInSquareEventHandler},
-    {type: eventTypes.secondClickEmptySquareEvent, handle: secondClickEmptySquareEventHandler},
-    {type: eventTypes.secondClickPieceInSquareEvent, handle: secondClickPieceInSquareEventHandler},
+    {type: eventTypes.FirstClickEmptySquareEvent, handle: firstClickEmptySquareEventHandler},
+    {type: eventTypes.FirstClickPieceInSquareEvent, handle: firstClickPieceInSquareEventHandler},
+    {type: eventTypes.SecondClickEmptySquareEvent, handle: secondClickEmptySquareEventHandler},
+    {type: eventTypes.SecondClickPieceInSquareEvent, handle: secondClickPieceInSquareEventHandler},
 ];
 
 function firstClickEmptySquareEventHandler(event) {

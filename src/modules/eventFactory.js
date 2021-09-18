@@ -25,8 +25,8 @@ export function createEvent(square){
 }
 
 export const eventTypes = {
-    firstClickEmptySquareEvent: FirstClickEmptySquareEvent,
-    firstClickPieceInSquareEvent: FirstClickPieceInSquareEvent,
-    secondClickEmptySquareEvent: SecondClickEmptySquareEvent,
-    secondClickPieceInSquareEvent: SecondClickPieceInSquareEvent
+    FirstClickEmptySquareEvent,
+    FirstClickPieceInSquareEvent,
+    SecondClickEmptySquareEvent,
+    SecondClickPieceInSquareEvent
 }
