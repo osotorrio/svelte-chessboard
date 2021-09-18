@@ -1,36 +1,24 @@
-const firstClickEmptySquareEvent = {type: 'firstClickEmptySquareEvent'};
+function FirstClickEmptySquareEvent(square){ this.square = square; }
 
-const firstClickPieceToBeMovedEvent = {type: 'firstClickPieceToBeMovedEvent', data: null};
+function FirstClickPieceInSquareEvent(square){ this.square = square; }
 
-const secondClickEmptySquareEvent = {type: 'secondClickEmptySquareEvent', data: null};
+function SecondClickEmptySquareEvent(square){ this.square = square; }
 
-const secondClickPieceToBeRemovedEvent = {type: 'secondClickPieceToBeRemovedEvent', data: null};
+function SecondClickPieceInSquareEvent(square){ this.square = square; }
 
 let isFirstClick = true;
 
-function createEvent(e){
-    if (isFirstClick) {
-        isFirstClick = !isFirstClick;
-
-        if (e.target.tagName === 'DIV')
-        {
-            isFirstClick = true;
-            return firstClickEmptySquareEvent;
-        }
-
-        firstClickPieceToBeMovedEvent.data = e.target;
-        return firstClickPieceToBeMovedEvent;
-    } else {
-        isFirstClick = !isFirstClick;
-
-        if (e.target.tagName === 'DIV') {
-            secondClickEmptySquareEvent.data = e.target;
-            return secondClickEmptySquareEvent;
-        }
-
-        secondClickPieceToBeRemovedEvent.data = e.target;
-        return secondClickPieceToBeRemovedEvent;
-    }
+export function createEvent(square){
+    if (isFirstClick && !square.piece) return new FirstClickEmptySquareEvent(square); 
+    if (isFirstClick && square.piece) return new FirstClickPieceInSquareEvent(square); 
+    if (!isFirstClick && !square.piece) return new SecondClickEmptySquareEvent(square); 
+    if (!isFirstClick && square.piece) return new SecondClickPieceInSquareEvent(square);
+    isFirstClick = !isFirstClick; 
 }
 
-export default createEvent;
+export const eventTypes = {
+    firstClickEmptySquareEvent: FirstClickEmptySquareEvent,
+    firstClickPieceInSquareEvent: FirstClickPieceInSquareEvent,
+    secondClickEmptySquareEvent: SecondClickEmptySquareEvent,
+    secondClickPieceInSquareEvent: SecondClickPieceInSquareEvent
+}

@@ -1,5 +1,7 @@
 <script>
   import { chessboard, findSquareById } from "../modules/chessboard";
+  import { createEvent } from "../modules/eventFactory";
+  import handleEvent from "../modules/eventHandler";
   import Square from "./square.svelte";
 
   let x;
@@ -8,6 +10,7 @@
   let board = chessboard;
 
   function handleClick(e) {
+    /*
     const id = e.currentTarget.id;
     const source = findSquareById(id);
     const target = findSquareById("f4");
@@ -17,7 +20,11 @@
 
     source.selected = true;
     source.piece = null;
+    */
 
+    const square = findSquareById(e.currentTarget.id);
+    const event = createEvent(square);
+    handleEvent(event);
     board = chessboard.map((row) => row);
   }
 </script>
