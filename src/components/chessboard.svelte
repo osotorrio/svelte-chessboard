@@ -1,7 +1,10 @@
 <script>
   import { chessboard, findSquareById } from "../modules/chessboard";
-  import { createEvent } from "../modules/eventFactory";
-  import handleEvent from "../modules/eventHandler";
+  import {
+    hasSelectedTwoSquares,
+    registerSelectedSquare,
+    tryToMakeMove,
+  } from "../modules/chessengine";
   import Square from "./square.svelte";
 
   let x;
@@ -10,22 +13,13 @@
   let board = chessboard;
 
   function handleClick(e) {
-    /*
-    const id = e.currentTarget.id;
-    const source = findSquareById(id);
-    const target = findSquareById("f4");
-
-    target.piece = source.piece;
-    target.selected = true;
-
-    source.selected = true;
-    source.piece = null;
-    */
-
     const square = findSquareById(e.currentTarget.id);
-    const event = createEvent(square);
-    handleEvent(event);
-    board = chessboard.map((row) => row);
+    registerSelectedSquare(square);
+
+    if (hasSelectedTwoSquares()) {
+      const wasMoved = tryToMakeMove();
+      if (wasMoved) board = chessboard.map((row) => row);
+    }
   }
 </script>
 
