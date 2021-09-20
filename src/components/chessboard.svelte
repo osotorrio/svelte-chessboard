@@ -12,6 +12,7 @@
   import WhiteQueen from "../components/pieces/white-queen.svelte";
   import WhiteRock from "../components/pieces/white-rock.svelte";
   import Square from "../components/square.svelte";
+  import { tryToMakeMove } from "../modules/chessengine";
 
   let x;
   $: height = x * 0.006;
@@ -85,7 +86,7 @@
   ];
 
   function handleClick(square) {
-    square.selected = !square.selected;
+    tryToMakeMove(square);
     chessboard = [...chessboard];
   }
 </script>
