@@ -4,11 +4,15 @@
   export let color;
   export let piece;
   export let selected;
-
-  $: if (selected) color = "selected";
 </script>
 
-<div on:click {id} style="height: {height}rem;" class="col {color} square">
+<div
+  on:click
+  {id}
+  style="height: {height}rem;"
+  class="col {color} square"
+  class:selected
+>
   <svelte:component this={piece} {height} />
 </div>
 
