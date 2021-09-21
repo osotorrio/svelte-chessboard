@@ -3,26 +3,28 @@ import { Chess } from "chess.js";
 const engine = new Chess();
 const selectedSquares = [];
 
-export const tryToMakeMove = (square) => {
-    if (selectedSquares.length === 0) {
-        if ((square.piece) 
+export const tryToMakeMove = (target) => {
+    if (selectedSquares.length % 2 === 0) {
+        if ((target.piece) 
             &&
-            ((isWhitePiece(square.piece) && isWhiteTurn()) || (isBlackPiece(square.piece) && isBlackTurn()))) 
+            ((isWhitePiece(target.piece) && isWhiteTurn()) || (isBlackPiece(target.piece) && isBlackTurn()))) 
         {
-            square.selected = !square.selected;
-            selectedSquares.push(square);
+            target.selected = !target.selected;
+            selectedSquares.push(target);
+            unselectPreviousSquares();
         }
     } else {
-        square.selected = !square.selected;
-        const source = selectedSquares.pop();
+        const source = selectedSquares[selectedSquares.length - 1];
+        target.selected = !target.selected;
+        selectedSquares.push(target);
 
         const legalMove = engine.move({
             from: source.id,
-            to: square.id
+            to: target.id
         });
 
         if (legalMove) {
-            square.piece = source.piece;
+            target.piece = source.piece;
             source.piece = null;            
         }
 }}
@@ -45,4 +47,11 @@ function isWhiteTurn() {
 
 function isBlackTurn() {
     return engine.turn() === "b";
+}
+
+function unselectPreviousSquares(){
+    if (selectedSquares.length > 2) {
+        selectedSquares[selectedSquares.length - 2].selected = false;
+        selectedSquares[selectedSquares.length - 3].selected = false;
+    }
 }
