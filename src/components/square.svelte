@@ -28,7 +28,7 @@
   }
 
   .selected {
-    background-color: #ccd178;
+    background-color: #ccd178; /*First: #7C986B. Second: ccd178*/
   }
 
   .square {

@@ -40,8 +40,7 @@ class SecondClickSameColorHandler {
         if (!isFirstClick() 
             && target.piece 
             && target.id !== getLastMove().id 
-            && isWhitePiece(target.piece) 
-            && isWhitePiece(getLastMove().piece)) {
+            && (isWhitePiece(target.piece) && isWhitePiece(getLastMove().piece) || isBlackPiece(target.piece) && isBlackPiece(getLastMove().piece))) {
             return true;
         }
         return false;
@@ -92,6 +91,10 @@ class SecondClickLegalMoveHandler {
         target.piece = source.piece;
         source.piece = null;
         selectedSquares.push(target);
+        if (selectedSquares.length > 2) {
+            selectedSquares[selectedSquares.length -3].selected = false;
+            selectedSquares[selectedSquares.length -4].selected = false;
+        }
     }
 }
 
