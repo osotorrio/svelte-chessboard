@@ -18,17 +18,17 @@
 
 <style>
   .white {
-    background-color: #f0d9b5;
+    background-color: #f0d9b5; /*#F6D8B5*/
     color: #b58863;
   }
 
   .black {
-    background-color: #b58863;
+    background-color: #b58863; /*#F6D8B5*/
     color: #f0d9b5;
   }
 
   .selected {
-    background-color: #829769;
+    background-color: #ccd178;
   }
 
   .square {
