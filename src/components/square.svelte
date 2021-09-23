@@ -18,13 +18,13 @@
 
 <style>
   .white {
-    background-color: #f0d9b5; /*#F6D8B5*/
-    color: #b58863;
+    background-color: #f6d8b5;
+    color: #bf8661;
   }
 
   .black {
-    background-color: #b58863; /*#F6D8B5*/
-    color: #f0d9b5;
+    background-color: #bf8661;
+    color: #f6d8b5;
   }
 
   .selected {
