@@ -14,6 +14,7 @@ class FirstClickHandler {
     }
 
     handle(target) {
+        console.log("FirstClickHandler");
         target.selected = true;
         selectedSquares.push(target);
     }
@@ -21,13 +22,14 @@ class FirstClickHandler {
 
 class SecondClickSamePieceHandler {
     canHandle(target) {
-        if (target.id === getLastMove().id) {
+        if (!isFirstClick() && target.id === getLastMove().id) {
             return true;
         }
         return false;
     }
 
     handle(target) {
+        console.log("SecondClickSamePieceHandler");
         target.selected = false;
         selectedSquares.pop();
     }
@@ -35,24 +37,70 @@ class SecondClickSamePieceHandler {
 
 class SecondClickSameColorHandler {
     canHandle(target) {
-        if (target.id !== getLastMove().id && isWhitePiece(target.piece) && isWhitePiece(getLastMove().piece)) {
+        if (!isFirstClick() 
+            && target.piece 
+            && target.id !== getLastMove().id 
+            && isWhitePiece(target.piece) 
+            && isWhitePiece(getLastMove().piece)) {
             return true;
         }
         return false;
     }
 
     handle(target) {
+        console.log("SecondClickSameColorHandler");
         selectedSquares.pop().selected = false;
         target.selected = true;
         selectedSquares.push(target);
     }
 }
 
+class SecondClickDifferentColorHandler {
+    canHandle(target) {
+        if (!isFirstClick() 
+            && target.piece 
+            && target.id !== getLastMove().id 
+            && (isWhitePiece(target.piece) && isBlackPiece(getLastMove().piece) || isBlackPiece(target.piece) && isWhitePiece(getLastMove().piece))) {
+            return true;
+        }
+        return false;
+    }
+
+    handle(target) {
+        console.log("SecondClickDifferentColorHandler");
+        selectedSquares.pop().selected = false;
+    }
+}
+
+class SecondClickLegalMoveHandler {
+    canHandle(target) {
+        const isLegalMove = engine.move({
+            from: getLastMove().id,
+            to: target.id
+        });
+
+        if (!isFirstClick() && isLegalMove) {
+            return true;
+        }
+        return false;
+    }
+
+    handle(target) {
+        console.log("SecondClickLegalMoveHandler");
+        const source = getLastMove();
+        target.selected = true;
+        target.piece = source.piece;
+        source.piece = null;
+        selectedSquares.push(target);
+    }
+}
 
 const handlers = [
     new FirstClickHandler(),
     new SecondClickSamePieceHandler(),
     new SecondClickSameColorHandler(),
+    new SecondClickDifferentColorHandler(),
+    new SecondClickLegalMoveHandler()
 ];
 
 export const tryToMakeMove = (target) => {
