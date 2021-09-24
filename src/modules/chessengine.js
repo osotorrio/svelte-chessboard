@@ -98,12 +98,30 @@ class SecondClickLegalMoveHandler {
     }
 }
 
+class DefaultHandler {
+    canHandle(target) { return true; }
+
+    handle(target) {
+        console.log("DefaultHandler");
+        if (selectedSquares.length === 1) {
+            selectedSquares[selectedSquares.length -1].selected = false;
+        }
+
+        if (selectedSquares.length >= 2) {
+            selectedSquares[selectedSquares.length -2].selected = false;
+            selectedSquares[selectedSquares.length -1].selected = false;
+        }
+        selectedSquares.pop();
+    }
+}
+
 const handlers = [
     new FirstClickHandler(),
     new SecondClickLegalMoveHandler(),
     new SecondClickSamePieceHandler(),
     new SecondClickSameColorHandler(),
-    new SecondClickDifferentColorHandler()
+    new SecondClickDifferentColorHandler(),
+    new DefaultHandler()
 ];
 
 export const tryToMakeMove = (target) => {
