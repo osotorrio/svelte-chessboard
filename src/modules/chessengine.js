@@ -15,6 +15,10 @@ class FirstClickHandler {
 
     handle(target) {
         console.log("FirstClickHandler");
+        if (selectedSquares.length >= 2) {
+            selectedSquares[selectedSquares.length -2].selected = false;
+            selectedSquares[selectedSquares.length -1].selected = false;
+        }
         target.selected = true;
         selectedSquares.push(target);
     }
@@ -91,19 +95,15 @@ class SecondClickLegalMoveHandler {
         target.piece = source.piece;
         source.piece = null;
         selectedSquares.push(target);
-        if (selectedSquares.length > 2) {
-            selectedSquares[selectedSquares.length -3].selected = false;
-            selectedSquares[selectedSquares.length -4].selected = false;
-        }
     }
 }
 
 const handlers = [
     new FirstClickHandler(),
+    new SecondClickLegalMoveHandler(),
     new SecondClickSamePieceHandler(),
     new SecondClickSameColorHandler(),
-    new SecondClickDifferentColorHandler(),
-    new SecondClickLegalMoveHandler()
+    new SecondClickDifferentColorHandler()
 ];
 
 export const tryToMakeMove = (target) => {
